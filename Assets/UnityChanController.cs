@@ -61,24 +61,24 @@ public class UnityChanController : MonoBehaviour
         }
 
     }
-
     void OntriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name);
 
         if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag")
-            {
-                this.isEnd = true;
-            }
-            if (other.gameObject.tag == "GoalTag")
-            {
-                this.isEnd = true;
-            }
-            if (other.gameObject.tag == "CoinTag")
-            {
-                GetComponent<ParticleSystem>().Play();
-                Destroy(other.gameObject);
-            }
+        {
+            this.isEnd = true;
+        }
+        if (other.gameObject.tag == "GoalTag")
+        {
+            this.isEnd = true;
+        }
+        if (other.gameObject.tag == "CoinTag")
+        {
+            GetComponent<ParticleSystem>().Play();
+            Destroy(other.gameObject);
+        }
     }
+
 
 }
