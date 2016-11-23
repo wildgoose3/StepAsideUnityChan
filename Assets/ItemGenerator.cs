@@ -7,17 +7,19 @@ public class ItemGenerator : MonoBehaviour
     public GameObject carPrefab;
     public GameObject coinPrefab;
     public GameObject conePrefab;
-
+    public GameObject unitychan;
+    public GameObject myCamera;
     private int startPos = -160;
     private int goalPos = 120;
     private float posRange = 3.4f;
 
-
-
     // Use this for initialization
     void Start()
     {
-        for (int i = startPos; i < goalPos; i += 15)
+        this.unitychan = GameObject.Find("unitychan");
+        this.myCamera = GameObject.Find("Main Camera");
+
+         for (int i = startPos; i < goalPos; i += 15)
         {
             int num = Random.Range(0, 10);
             if (num <= 1)
@@ -45,13 +47,12 @@ public class ItemGenerator : MonoBehaviour
                     }
                 }
 
-
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 }
