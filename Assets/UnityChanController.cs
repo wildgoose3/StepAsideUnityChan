@@ -66,12 +66,12 @@ public class UnityChanController : MonoBehaviour
     {
         if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag")
         {
-            //this.isEnd = true;
+            this.isEnd = true;
             this.stateText.GetComponent<Text>().text = "GAME OVER";
         }
         if (other.gameObject.tag == "GoalTag")
         {
-            //this.isEnd = true;
+            this.isEnd = true;
             this.stateText.GetComponent<Text>().text = "CLEAR!!";
         }
         if (other.gameObject.tag == "CoinTag")

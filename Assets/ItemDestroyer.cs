@@ -3,20 +3,19 @@ using System.Collections;
 
 public class ItemDestroyer : MonoBehaviour {
 
-    private GameObject unitychan;
+    private GameObject myCamera;
 
     // Use this for initialization
     void Start () {
-        this.unitychan = GameObject.Find("unitychan");
+        myCamera = GameObject.Find("Main Camera");
     }
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.position = new Vector3(0, this.transform.position.y, this.unitychan.transform.position.z-2);//unitychanの2m後ろに
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.myCamera.transform.position.z);//カメラと同じZ座標
 	}
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ログだよ");
         Destroy(other.gameObject);
     }
 }
