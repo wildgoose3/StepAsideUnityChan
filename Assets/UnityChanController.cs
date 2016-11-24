@@ -15,9 +15,11 @@ public class UnityChanController : MonoBehaviour
     private bool isEnd = false;
     private GameObject stateText;
     private GameObject scoreText;
+    private GameObject restart;
     private int score;
     private bool isLButtonDown = false;
     private bool isRButtonDown = false;
+    private bool restartButtonDown = false;//Restartボタンの設定
 
     // Use this for initialization
     void Start()
@@ -27,6 +29,7 @@ public class UnityChanController : MonoBehaviour
         this.myRigidbody = GetComponent<Rigidbody>();
         this.stateText = GameObject.Find("GameResultText");
         this.scoreText = GameObject.Find("ScoreText");
+        restart = GameObject.Find("Restart");//Restartボタンの読み込み
     }
 
     // Update is called once per frame
@@ -38,7 +41,6 @@ public class UnityChanController : MonoBehaviour
             this.turnForce *= this.coefficient;
             this.upForce *= this.coefficient;
             this.myAnimator.speed *= this.coefficient;
-  
         }
 
         this.myRigidbody.AddForce(this.transform.forward * forwardForce);
@@ -51,14 +53,22 @@ public class UnityChanController : MonoBehaviour
         {
             this.myRigidbody.AddForce(turnForce, 0, 0);
         }
+
+        //Jumpステートの場合はJumpにfalseをセットする
         if (this.myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
         {
             this.myAnimator.SetBool("Jump", false);
         }
-        if (Input.GetKey(KeyCode.Space) && this.transform.position.y < 0.5f)
+
+        if (Input.GetKey(KeyCode.Space)&& this.transform.position.y < 0.5f)
         {
             this.myAnimator.SetBool("Jump", true);
             this.myRigidbody.AddForce(this.transform.up * this.upForce);
+        }
+        //Restartボタンが押されるかEnterキーが押された場合
+        if(this.restartButtonDown || Input.GetKey(KeyCode.Return))
+            {
+            Application.LoadLevel("GameScene");
         }
 
     }
@@ -87,7 +97,7 @@ public class UnityChanController : MonoBehaviour
         if (this.transform.position.y < 0.5f)
         {
             this.myAnimator.SetBool("Jump", true);
-            this.myRigidbody.AddForce(this.transform.up * upForce);
+            this.myRigidbody.AddForce(this.transform.up * this.upForce);
         }
     }
     public void GetMyLeftButtonDown()
@@ -105,5 +115,9 @@ public class UnityChanController : MonoBehaviour
     public void GetMyRightButtonUp()
     {
         this.isRButtonDown = false;
+    }
+    public void GetMyRestartButton()
+    {
+        this.restartButtonDown = true;
     }
 }

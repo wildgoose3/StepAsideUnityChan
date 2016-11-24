@@ -16,6 +16,9 @@ public class ItemDestroyer : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "CoinTag" || other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag")
+        { 
         Destroy(other.gameObject);
+        }
     }
 }
