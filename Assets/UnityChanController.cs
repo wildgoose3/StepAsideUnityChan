@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UnityChanController : MonoBehaviour
 {
@@ -42,8 +43,9 @@ public class UnityChanController : MonoBehaviour
             this.upForce *= this.coefficient;
             this.myAnimator.speed *= this.coefficient;
         }
-
+        //unityちゃんに前方向の力を加える
         this.myRigidbody.AddForce(this.transform.forward * forwardForce);
+
 
         if ((Input.GetKey(KeyCode.LeftArrow)||this.isLButtonDown)  && -this.movableRange < this.transform.position.x)
         {
@@ -60,15 +62,15 @@ public class UnityChanController : MonoBehaviour
             this.myAnimator.SetBool("Jump", false);
         }
 
-        if (Input.GetKey(KeyCode.Space)&& this.transform.position.y < 0.5f)
+        if (Input.GetKeyDown(KeyCode.Space)&& this.transform.position.y < 0.5f)
         {
             this.myAnimator.SetBool("Jump", true);
             this.myRigidbody.AddForce(this.transform.up * this.upForce);
         }
-        //Restartボタンが押されるかEnterキーが押された場合
+        //Restartボタンが押されるかEnterキーが押された場合リスタート
         if(this.restartButtonDown || Input.GetKey(KeyCode.Return))
             {
-            Application.LoadLevel("GameScene");
+            SceneManager.LoadScene("GameScene");
         }
 
     }
@@ -88,7 +90,7 @@ public class UnityChanController : MonoBehaviour
         {
             GetComponent<ParticleSystem>().Play();
             score += 10;
-            this.scoreText.GetComponent<Text>().text = "SCORE"+score+"Pt";
+            this.scoreText.GetComponent<Text>().text = "SCORE "+score+"Pt";
             Destroy(other.gameObject);
         }
     }
@@ -102,7 +104,7 @@ public class UnityChanController : MonoBehaviour
     }
     public void GetMyLeftButtonDown()
     {
-        this.isLButtonDown=true;
+        this.isLButtonDown = true;
     }
     public void GetMyLeftButtonUp()
     {
